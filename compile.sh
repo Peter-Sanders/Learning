@@ -11,7 +11,7 @@ function compile_file {
 	filename=${filearr[0]}
 	fileext=${filearr[1]}  
 
-	# rm $out
+	# rm -rf $out
 	if [ $fileext = c ]; then
 		gcc $file -o $filename
 		./$filename > $out
@@ -20,6 +20,16 @@ function compile_file {
 		./$filename > $out
 	elif [ $fileext = py ]; then 
 		python3 $file > $out
+	elif [ $fileext = java ]; then
+		filedirarr=(${filename//// })
+		filedirdir=${filedirarr[0]}
+		filedirname=${filedirarr[1]}
+		fileexename="$filedirname"."$fileext"
+		cd $filedirdir 
+		javac $fileexename
+		java $filedirname > ../$out
+		cd ..
+	
 	else 
 		echo "extension $fileext not supported" > $out
 	fi
