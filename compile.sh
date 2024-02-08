@@ -10,6 +10,10 @@ function compile_file {
 	filearr=(${file//./ })
 	filename=${filearr[0]}
 	fileext=${filearr[1]}  
+	filedirarr=(${filename//// })
+	filedirdir=${filedirarr[0]}
+	filedirname=${filedirarr[1]}
+	fileexename="$filedirname"."$fileext"
 
 	# rm -rf $out
 	if [ $fileext = c ]; then
@@ -21,15 +25,15 @@ function compile_file {
 	elif [ $fileext = py ]; then 
 		python3 $file > $out
 	elif [ $fileext = java ]; then
-		filedirarr=(${filename//// })
-		filedirdir=${filedirarr[0]}
-		filedirname=${filedirarr[1]}
-		fileexename="$filedirname"."$fileext"
 		cd $filedirdir 
 		javac $fileexename
 		java $filedirname > ../$out
 		cd ..
-	
+	elif [ $fileext = cbl ]; then
+		cd $filedirdir 
+		cobc -free -x -o $filedirname $fileexename
+		./$filedirname > ../$out
+		cd ..
 	else 
 		echo "extension $fileext not supported" > $out
 	fi
