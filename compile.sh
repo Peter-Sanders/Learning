@@ -15,35 +15,45 @@ function compile_file {
 	filedirname=${filedirarr[1]}
 	fileexename="$filedirname"."$fileext"
 
-	if [ $fileext = c ]; then
-		gcc $file -o $filename
-		./$filename > $out
-	elif [ $fileext = cpp ]; then 
-		g++ $file -o $filename 
-		./$filename > $out
-	elif [ $fileext = py ]; then 
-		python3 $file > $out
-	elif [ $fileext = java ]; then
-		cd $filedirdir 
-		javac $fileexename
-		java $filedirname > ../$out
-		cd ..
-	elif [ $fileext = cbl ]; then
-		cd $filedirdir 
-		cobc -free -x -o $filedirname $fileexename
-		./$filedirname > ../$out
-		cd ..
-	elif [ $fileext = asm ]; then 
-		nasm -felf64 $file && ld $filedirdir/$filedirname.o -o $filedirdir/$filedirname && ./$filedirdir/$filedirname > $out
-		echo $? >> $out
-	elif [ $fileext = rs ]; then 
-		cd $filedirdir
-		rustc $fileexename  
-		./$filedirname > ../$out
-		cd ..
-	else 
+
+	case $fileext in 
+		c)
+			gcc $file -o $filename 
+			./$filename > $out
+			;;
+		cpp)
+			g++ $file -o $filename 
+			./$filename > $out
+			;;
+		py)
+			python3 $file > $out
+			;;
+		java)n
+			cd $filedirdir 
+			javac $fileexename
+			java $filedirname > ../$out
+			cd ..
+			;;
+		cbl)
+			cd $filedirdir 
+			cobc -free -x -o $filedirname $fileexename
+			./$filedirname > ../$out
+			cd ..
+			;;
+		asm)
+			nasm -felf64 $file && ld $filedirdir/$filedirname.o -o $filedirdir/$filedirname && ./$filedirdir/$filedirname > $out
+			echo $? >> $out
+			;;
+		rs)
+			cd $filedirdir
+			rustc $fileexename  
+			./$filedirname > ../$out
+			cd ..
+			;;
+		*)
 		echo "extension $fileext not supported" > $out
-	fi
+			;;
+	esac
 }
 
 # check if we have file arg provided
