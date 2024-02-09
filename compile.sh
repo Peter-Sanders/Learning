@@ -34,6 +34,9 @@ function compile_file {
 		cobc -free -x -o $filedirname $fileexename
 		./$filedirname > ../$out
 		cd ..
+	elif [ $fileext = asm ]; then 
+		nasm -felf64 $file && ld $filedirdir/$filedirname.o -o $filedirdir/$filedirname && ./$filedirdir/$filedirname > $out
+		echo $? >> $out
 	else 
 		echo "extension $fileext not supported" > $out
 	fi

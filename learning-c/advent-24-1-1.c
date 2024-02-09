@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 int main() {
-    char *filename = "advent-storage/advent-24-1.txt";
+    char *filename = "../advent-storage/advent-24-1.txt";
     FILE *fp = fopen(filename, "r");
 
     if (fp == NULL) {
