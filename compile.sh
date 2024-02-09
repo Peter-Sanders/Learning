@@ -15,7 +15,6 @@ function compile_file {
 	filedirname=${filedirarr[1]}
 	fileexename="$filedirname"."$fileext"
 
-	# rm -rf $out
 	if [ $fileext = c ]; then
 		gcc $file -o $filename
 		./$filename > $out
@@ -37,6 +36,11 @@ function compile_file {
 	elif [ $fileext = asm ]; then 
 		nasm -felf64 $file && ld $filedirdir/$filedirname.o -o $filedirdir/$filedirname && ./$filedirdir/$filedirname > $out
 		echo $? >> $out
+	elif [ $fileext = rs ]; then 
+		cd $filedirdir
+		rustc $fileexename  
+		./$filedirname > ../$out
+		cd ..
 	else 
 		echo "extension $fileext not supported" > $out
 	fi
