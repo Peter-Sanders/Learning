@@ -42,7 +42,7 @@ function compile_file {
 			;;
 		asm)
 			nasm -felf64 $file && ld $filedirdir/$filedirname.o -o $filedirdir/$filedirname && ./$filedirdir/$filedirname > $out
-			echo $? >> $out
+			echo $? > $out
 			;;
 		rs)
 			cd $filedirdir
@@ -50,6 +50,12 @@ function compile_file {
 			./$filedirname > ../$out
 			cd ..
 			;;
+    go)
+      cd $filedirdir/$filedirname
+      go build .
+      go run . > ../../$out 
+      cd ../.. 
+      ;;
 		*)
 		echo "extension $fileext not supported" > $out
 			;;
