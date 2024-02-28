@@ -1,4 +1,0 @@
-Student id: 15
-Student age: 23
-Student fee: 75.250000
-Student grade: B

@@ -33,4 +33,4 @@ exit:
 			syscall
 
 			section .data
-path:		db		"advent-storage/advent-24-1.txt", 0
+path:		db		"advent-storage/advent-23-1.txt", 0
