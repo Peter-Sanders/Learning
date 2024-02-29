@@ -1,6 +1,6 @@
 import time
 
-file = 'advent-23-1.txt'
+file = 'advent-storage/advent-23-1.txt'
 
 def solution1(file):
     res = 0

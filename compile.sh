@@ -56,6 +56,11 @@ function compile_file {
       go run . > ../../$out 
       cd ../.. 
       ;;
+    zig)
+      cd $filedirdir/$filedirname
+      zig build run > ../../$out
+      cd ../..
+      ;;
 		*)
 		echo "extension $fileext not supported" > $out
 			;;
