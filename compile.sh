@@ -52,7 +52,6 @@ function compile_file {
 			;;
     go)
       cd $filedirdir/$filedirname
-      go build .
       go run . > ../../$out 
       cd ../.. 
       ;;
